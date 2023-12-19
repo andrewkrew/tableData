@@ -4,7 +4,7 @@ import { SearchTodosParams } from "../../shared/api/types";
 const initialState: SearchTodosParams = {
 	page: 1,
 	search: '',
-	status: null,
+	status: '',
 	sortBy: 'id',
 	order: 'asc',
 }
@@ -23,8 +23,10 @@ export const filterSlice = createSlice({
 			state.status = action.payload;
 		},
 		setSort(state, action) {
-			state.sortBy = action.payload.sortBy;
-			state.order = action.payload.order;
+			state.sortBy = action.payload;
 		},
+		setOrder(state, action) {
+			state.order = action.payload;
+		}
 	}
 })

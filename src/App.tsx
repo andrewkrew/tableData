@@ -1,30 +1,25 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import './App.css'
 import { TableData } from './components/tableData/TableData'
 import { useAppDispatch, useAppSelector } from './shared/hooks/useRedux'
-import { fetchTodosThunk } from './redux';
+import { fetchTodosThunk, fetchUsersThunk } from './redux';
 import { SearchTodosParams } from './shared/api/types';
-import { filterSelector, todosSelector } from './redux/selectors';
+import { filterSelector } from './redux/selectors';
 import { FilterList } from './components/filterList';
 
 function App() {
 
-  // const [page, setPage] = useState<number>(1);
-  // const [searchValue, setSearchValue] = useState<string>('');
-  // const [isCompleted, setIsCompleted] = useState<boolean | null>(null);
-  // const [sortBy, setSortBy] = useState<'id' | 'title'>('id');
-  // const [order, setOrder] = useState<'asc' | 'desc'>('asc');
-
   const dispatch = useAppDispatch();
   const {page, search, status, sortBy, order} = useAppSelector(filterSelector);
-  const {todosData} = useAppSelector(todosSelector);
+
+	useEffect(() => {
+		dispatch(fetchUsersThunk())
+	}, [dispatch])
 
   useEffect(() => {
     dispatch(fetchTodosThunk(
       {
         page,
-        // search: searchValue,
-        // status: isCompleted,
         search,
         status,
         sortBy,
@@ -34,10 +29,9 @@ function App() {
 
   return (
     <>
-    <h1>TABLE DATA</h1>
-    <FilterList/>
-    <TableData/>
-    <pre>{JSON.stringify(todosData, null, 2)}</pre>
+			<h1>TABLE DATA</h1>
+			<FilterList/>
+			<TableData/>
     </>
   )
 }

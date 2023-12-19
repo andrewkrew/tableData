@@ -4,10 +4,10 @@ import { SearchTodosParams, TodosList } from './types';
 class Todos extends Api {
 	private readonly endpointTodos = '/todos';
 
-	async getTodos({page = 1, search, status = null, sortBy, order}: SearchTodosParams): Promise<TodosList[]> {
+	async getTodos({page = 1, search, status = '', sortBy, order}: SearchTodosParams): Promise<TodosList[]> {
 		
 		const searchApi = search ? `&title_like=${search}` : '';
-		const statusApi = status === null ? '' : (status ? '&completed=true' : '&completed=false');
+		const statusApi = status === '' ? '' : (status ? '&completed=true' : '&completed=false');
 		const sortApi = (sortBy && order ? `&_sort=${sortBy}&_order=${order}` : '');		
 		
 		const {data} = await this.api.get<TodosList[]>
