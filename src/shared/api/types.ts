@@ -9,8 +9,7 @@ export interface SearchTodosParams {
 	page: number,
 	search: string,
 	status: boolean | null,
-	// sortBy: 'id' | 'title',
-	// order: 'asc | desc',
-	sortBy: string,
-	order: string,
+	// status: boolean | undefined,
+	sortBy: 'id' | 'title',
+	order: 'asc' | 'desc',
 }

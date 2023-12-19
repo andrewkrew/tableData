@@ -1,33 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
 import './App.css'
+import { TableData } from './components/tableData/TableData'
+import { useAppDispatch, useAppSelector } from './shared/hooks/useRedux'
+import { fetchTodosThunk } from './redux';
+import { SearchTodosParams } from './shared/api/types';
+import { filterSelector, todosSelector } from './redux/selectors';
+import { FilterList } from './components/filterList';
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  // const [page, setPage] = useState<number>(1);
+  // const [searchValue, setSearchValue] = useState<string>('');
+  // const [isCompleted, setIsCompleted] = useState<boolean | null>(null);
+  // const [sortBy, setSortBy] = useState<'id' | 'title'>('id');
+  // const [order, setOrder] = useState<'asc' | 'desc'>('asc');
+
+  const dispatch = useAppDispatch();
+  const {page, search, status, sortBy, order} = useAppSelector(filterSelector);
+  const {todosData} = useAppSelector(todosSelector);
+
+  useEffect(() => {
+    dispatch(fetchTodosThunk(
+      {
+        page,
+        // search: searchValue,
+        // status: isCompleted,
+        search,
+        status,
+        sortBy,
+        order,
+      } as SearchTodosParams));
+  }, [dispatch, page, search, status, sortBy, order])
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <h1>TABLE DATA</h1>
+    <FilterList/>
+    <TableData/>
+    <pre>{JSON.stringify(todosData, null, 2)}</pre>
     </>
   )
 }
