@@ -6,17 +6,14 @@ import { fetchTodosThunk, fetchUsersThunk } from './redux';
 import { SearchTodosParams } from './shared/api/types';
 import { filterSelector } from './redux/selectors';
 import { FilterList } from './components/filterList';
+import { useDebounce } from './shared/hooks/useDebounce';
 
 function App() {
 
   const dispatch = useAppDispatch();
   const {page, search, status, sortBy, order} = useAppSelector(filterSelector);
 
-	useEffect(() => {
-		dispatch(fetchUsersThunk())
-	}, [dispatch])
-
-  useEffect(() => {
+  const fetchData = () => {
     dispatch(fetchTodosThunk(
       {
         page,
@@ -24,8 +21,18 @@ function App() {
         status,
         sortBy,
         order,
-      } as SearchTodosParams));
-  }, [dispatch, page, search, status, sortBy, order])
+      } as SearchTodosParams)); 
+  }
+
+  useDebounce(fetchData, 500, [search]);
+
+	useEffect(() => {
+		dispatch(fetchUsersThunk())
+	}, [dispatch])
+
+  useEffect(() => {
+    fetchData();      
+  }, [dispatch, page, status, sortBy, order])
 
   return (
     <>

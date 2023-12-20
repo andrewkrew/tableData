@@ -1,9 +1,9 @@
 import { ChangeEvent } from 'react';
-import { TextField } from '@mui/material';
+import { InputAdornment, TextField } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../../shared/hooks/useRedux';
 import { filterSelector } from '../../../redux/selectors';
-import { setSearchValue } from '../../../redux';
-// import { useDebounce } from '../../../shared/hooks/useDebounce';
+import { setPage, setSearchValue } from '../../../redux';
+import SearchIcon from '@mui/icons-material/Search';
 
 export const SearchPanel = () => {
   
@@ -12,9 +12,8 @@ export const SearchPanel = () => {
   
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
 			dispatch(setSearchValue(event.target.value));
+			dispatch(setPage(1))
     };
-
-		// useDebounce(handleChange, 1000, [search])
 
 	return (
 		<TextField 
@@ -22,8 +21,10 @@ export const SearchPanel = () => {
 			label="Search field" 
 			type="search" 
 			value={search}
-			// onChange={handleChange}
 			onChange={(event: ChangeEvent<HTMLInputElement>) => handleChange(event)}
+			InputProps={{
+				startAdornment: <InputAdornment position="start"><SearchIcon/></InputAdornment>,
+			}}
 		/>
 	)
 }

@@ -2,7 +2,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { useAppDispatch, useAppSelector } from '../../../shared/hooks/useRedux';
 import { filterSelector } from '../../../redux/selectors';
-import { setOrder } from '../../../redux';
+import { setOrder, setPage } from '../../../redux';
 import { SelectElement } from '../selectElement';
 
 export const SelectOrder = () => {
@@ -12,6 +12,7 @@ export const SelectOrder = () => {
 
 	const handleChange = (event: SelectChangeEvent) => {
 		dispatch(setOrder(event.target.value));
+		dispatch(setPage(1));
 	};
 
   return (

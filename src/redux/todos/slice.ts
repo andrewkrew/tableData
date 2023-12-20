@@ -1,17 +1,20 @@
 import { AnyAction, createSlice } from "@reduxjs/toolkit";
-import { TodosList, UserList } from "../../shared/api/types";
+import { TodosData, UserList } from "../../shared/api/types";
 import { fetchTodosThunk, fetchUsersThunk } from "./thunk";
 
 interface TodosState {
 	isLoading: boolean,
-	todosData: TodosList[],
+	todosData: TodosData,
 	usersData: UserList[],
 	error: string | undefined,
 }
 
 const initialState: TodosState = {
 	isLoading: false,
-	todosData: [],
+	todosData: {
+		data: [], 
+		totalCount: ''
+	} as TodosData,
 	usersData: [],
 	error: '',
 }
@@ -37,8 +40,17 @@ export const todosSlice = createSlice({
       }
 		);
 
+		builder.addMatcher(fetchUsersThunk.pending.match, (state) => {
+			state.isLoading = true;
+		})
+
 		builder.addMatcher(fetchUsersThunk.fulfilled.match, (state, action: AnyAction) => {
 			state.usersData = action.payload;
+		})
+
+		builder.addMatcher(fetchUsersThunk.rejected.match, (state, action: AnyAction) => {
+			state.isLoading = false;
+			state.error = action.payload;
 		})
 	},
 })

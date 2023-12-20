@@ -5,6 +5,11 @@ export interface TodosList {
 	completed: boolean,
 }
 
+export interface TodosData{
+	data: TodosList[],
+	totalCount: string,
+}
+
 export interface SearchTodosParams {
 	page: number,
 	search: string,

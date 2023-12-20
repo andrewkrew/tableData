@@ -2,7 +2,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { useAppDispatch, useAppSelector } from '../../../shared/hooks/useRedux';
 import { filterSelector } from '../../../redux/selectors';
-import { setStatus } from '../../../redux';
+import { setPage, setStatus } from '../../../redux';
 import { SelectElement } from '../selectElement';
 
 export const SelectCompleted = () => {
@@ -12,6 +12,7 @@ export const SelectCompleted = () => {
 
 	const handleChange = (event: SelectChangeEvent) => {
 		dispatch(setStatus(event.target.value));
+    dispatch(setPage(1));
 	};
 
   return (
