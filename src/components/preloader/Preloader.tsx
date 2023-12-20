@@ -1,10 +1,10 @@
-import CircularProgress from '@mui/material/CircularProgress';
+import { LinearProgress } from '@mui/material';
 import Box from '@mui/material/Box';
 
 export const Preloader = () => {
   return (
-    <Box sx={{ display: 'flex'}}>
-      <CircularProgress sx={{
+		<Box sx={{ width: '100%', height: 10 }}>
+      <LinearProgress sx={{
           color: () => '#ff9800'
         }}/>
     </Box>

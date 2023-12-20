@@ -25,6 +25,7 @@ export const SearchPanel = () => {
 			InputProps={{
 				startAdornment: <InputAdornment position="start"><SearchIcon/></InputAdornment>,
 			}}
+			sx={{minWidth: 250}}
 		/>
 	)
 }

@@ -13,8 +13,7 @@ export interface TodosData{
 export interface SearchTodosParams {
 	page: number,
 	search: string,
-	status: boolean | '',
-	// status: boolean | undefined,
+	status: number | '',
 	sortBy: 'id' | 'title',
 	order: 'asc' | 'desc',
 }

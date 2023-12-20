@@ -1,8 +1,9 @@
 import Api from './index'
-import { SearchTodosParams, TodosData } from './types';
+import { SearchTodosParams, TodosData, TodosList } from './types';
 
 class Todos extends Api {
 	private readonly endpointTodos = '/todos';
+	private readonly endpointUsers = '/users';
 
 	async getTodos({page = 1, search, status = '', sortBy, order}: SearchTodosParams): Promise<TodosData> {
 		
@@ -15,6 +16,11 @@ class Todos extends Api {
 			data: data.data,
 			totalCount: data.headers['x-total-count'],
 		}
+	}
+
+	async getUsers(): Promise<TodosList[]> {
+		const {data} = await this.api.get<TodosList[]>(this.endpointUsers);
+		return data;
 	}
 }
 

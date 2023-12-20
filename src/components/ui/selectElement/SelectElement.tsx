@@ -4,11 +4,11 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 export const SelectElement = (
 	{label, handleChange, parametr, children}
-	: {label: string, handleChange: (event: SelectChangeEvent) => void, parametr: any, children: React.ReactNode}
+	: {label: string, handleChange: (event: SelectChangeEvent) => void, parametr: string, children: React.ReactNode}
 ) => {
 	return (
 		<>
-			<FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
+			<FormControl variant="outlined" sx={{ m: 1, minWidth: 250 }}>
         <InputLabel id={`is${label}`}>{label}</InputLabel>
         <Select
           labelId={`is${label}`}

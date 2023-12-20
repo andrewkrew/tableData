@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import Todos from "../../shared/api/todos";
 import { SearchTodosParams } from "../../shared/api/types";
-import Users from "../../shared/api/users";
 
 export const fetchTodosThunk = createAsyncThunk(
 	'todos/fetchTodos',
@@ -23,7 +22,7 @@ export const fetchUsersThunk = createAsyncThunk(
 	'users/fetchUsers',
 	async (_ , { rejectWithValue }) => {
 		try {
-			const data = await (new Users()).getUsers();
+			const data = await (new Todos()).getUsers();
 			return data;
 		}
 		catch(error: unknown) {

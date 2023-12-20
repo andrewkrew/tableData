@@ -17,7 +17,7 @@ export const SelectCompleted = () => {
 
   return (
     <>
-			<SelectElement label={'Complete'} handleChange={handleChange} parametr={status}>
+			<SelectElement label={'Complete'} handleChange={handleChange} parametr={status.toString()}>
 				<MenuItem value={''}>Show all</MenuItem>
         <MenuItem value={1}>Completed</MenuItem>
         <MenuItem value={0}>Not completed</MenuItem>

@@ -7,6 +7,7 @@ import { SearchTodosParams } from './shared/api/types';
 import { filterSelector } from './redux/selectors';
 import { FilterList } from './components/filterList';
 import { useDebounce } from './shared/hooks/useDebounce';
+import { Typography } from '@mui/material';
 
 function App() {
 
@@ -35,11 +36,15 @@ function App() {
   }, [dispatch, page, status, sortBy, order])
 
   return (
-    <>
-			<h1>TABLE DATA</h1>
+    <div className='wrapper'>
+			<Typography  
+				variant="h2" 
+				sx={{textTransform: 'uppercase', padding: 1}}>
+				table data
+			</Typography>
 			<FilterList/>
 			<TableData/>
-    </>
+    </div>
   )
 }
 
